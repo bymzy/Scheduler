@@ -59,14 +59,21 @@ EOF`
     echo ${res} | tr "\n" " " | awk -F "|" '{print $4}' | base64 -d -i
 }
 
-echo $#
+function UpdateWord()
+{
+    local word=$1
+    local lastTime=$2
+
+    sqlite3 ${DBPATH} <<EOF
+UPDATE ${DICTTABLE} SET LastTime = ${lastTime} WHERE Name = "${word}";
+EOF
+}
 
 if [ $# -ne 1 ]
 then
     echo "you should input one word!"
     exit 
 fi
-
 
 Word=$1
 
@@ -83,21 +90,18 @@ then
     exit 1
 fi
 
+insertTime=`GetPosixTime`
+
 if [ ! -z "$queryRes" ]
 then
-    echo $queryRes | jq .
-    exit 0
+    UpdateWord "${Word}" ${insertTime}
+    #echo $queryRes | jq .
+else
+    trans=`TranslateWord "$Word"`
+    base64Trans=`echo -n "${trans}" | base64`
+    InsertWordToDictTalbe "$Word" $insertTime "${base64Trans}"
+    #echo $trans | jq .
 fi
-
-insertTime=`GetPosixTime`
-trans=`TranslateWord "$Word"`
-base64Trans=`echo -n "${trans}" | base64`
-
-InsertWordToDictTalbe "$Word" $insertTime "${base64Trans}"
-
-echo $trans | jq .
-
-
 
 
 
