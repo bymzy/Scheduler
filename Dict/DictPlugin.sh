@@ -1,6 +1,6 @@
 #! /bin/bash
 
-UTILPATH=/DICT_PLUGIN_DIR/../Util.sh
+UTILPATH=/MAIN_DIR/Common/Util.sh
 DICTCONF=/DICT_PLUGIN_DIR/dict.conf
 
 source ${UTILPATH}

@@ -1,13 +1,10 @@
 #! /bin/bash
 
-SCHCONF=/MAIN_DIR/sch.conf
-source ${SCHCONF}
-
 function SendEmail()
 {
     subject=$1
     content=$2
-    python /MAIN_DIR/sendemail.py "${subject}" "${content}"
+    python /MAIN_DIR/Common/sendemail.py "${subject}" "${content}"
 }
 
 function GetPosixTime()

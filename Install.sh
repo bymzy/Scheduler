@@ -1,22 +1,23 @@
 #! /bin/bash
 
-source ./sch.conf
+source Common/sch.conf
 
 function InstallCommon()
 {
     local mainDir=$1
-    mkdir -p ${mainDir}
 
-    cp sendemail.py ${mainDir}
-    cp Util.sh ${mainDir}
-    cp sch.conf ${mainDir}
+    mkdir -p ${mainDir}/Common
+    cp Common/sendemail.py ${mainDir}/Common
+    cp Common/Util.sh ${mainDir}/Common
+    cp Common/sch.conf ${mainDir}/Common
 
-    sed -i "s;MAIN_DIR;${mainDir};g" ${mainDir}/sch.conf
-    sed -i "s;MAIN_DIR;${mainDir};g" ${mainDir}/Util.sh
+    sed -i "s;MAIN_DIR;${mainDir};g" ${mainDir}/Common/sch.conf
+    sed -i "s;MAIN_DIR;${mainDir};g" ${mainDir}/Common/Util.sh
 }
 
 function InstallDict()
 {
+    local mainDir=$1
     local dictDir="$1/Dict"
     echo $dictDir
 
@@ -26,6 +27,7 @@ function InstallDict()
     sed -i "s;DICT_PLUGIN_DIR;${dictDir};g" ${dictDir}/*.conf
     sed -i "s;DICT_PLUGIN_DIR;${dictDir};g" ${dictDir}/*.sh
     sed -i "s;DICT_PLUGIN_DIR;${dictDir};g" ${dictDir}/*.cron
+    sed -i "s;MAIN_DIR;${mainDir};g" ${dictDir}/*.sh
 
     # add alias
     echo "alias sw=\"sh ${dictDir}/SaveWord.sh\"" >>/root/.bashrc
