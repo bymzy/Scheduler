@@ -7,9 +7,7 @@ function SendEmail()
 {
     subject=$1
     content=$2
-    sendEmail -f ${FromEmail} -s ${SMTPServer} -u "${subject}"\
-        -o message-charset=utf-8 -xu ${FromEmail} -xp ${EmailPassword}\
-        -m "\"${content}\"" -t ${ToEmail}
+    python /MAIN_DIR/sendemail.py "${subject}" "${content}"
 }
 
 function GetPosixTime()

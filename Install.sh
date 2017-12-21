@@ -7,6 +7,7 @@ function InstallCommon()
     local mainDir=$1
     mkdir -p ${mainDir}
 
+    cp sendemail.py ${mainDir}
     cp Util.sh ${mainDir}
     cp sch.conf ${mainDir}
 

@@ -7,9 +7,8 @@ source ${UTILPATH}
 source ${DICTPLUGIN}
 
 dateString=`date +"%Y-%m-%d %H:%M:%S"`
-email=`GetLastWords 10`
-emailSubject="Daily English Words!"
-emailContent="${dateString} Today's English words"
+emailContent=`GetLastWords 10`
+emailSubject="Daily English Words! ${dateString}"
 
 SendEmail "${emailSubject}" "${emailContent}"
 

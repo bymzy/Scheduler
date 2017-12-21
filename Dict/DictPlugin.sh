@@ -81,9 +81,26 @@ EOF`
         UpdateWord "${word}" `GetPosixTime`
 
         local tran=`echo ${line} | awk -F "|" '{print $2}'| tr "_" " " | base64 -d -i`
-        ShellFormatWords "${tran}"
+        EmailFormatWords "${tran}"
         echo " "
     done
+}
+
+function EmailFormatWords()
+{
+    local json=$1
+    #output "Word"
+    echo ${json} | jq -r "(\"Word: \" +  .word)"
+
+    #output pronunciation
+    echo ${json} | jq -r ".pronunciation | (\"AmE: \" + .AmE + \"    BrE: \" + .BrE)"
+
+    #output defs
+    echo ${json} | jq -r ".defs | .[ ] | (.pos + \"  ==> \" + .def)"
+    echo ""
+
+    #output samples
+    echo ${json} | jq -r ".sams | .[0:5] | .[] | .eng ,.chn, \" \""
 }
 
 function ShellFormatWords()
