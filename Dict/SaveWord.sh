@@ -1,6 +1,6 @@
 #! /bin/bash
 
-DICTPLUGIN=/root/work/Scheduler/DictPlugin.sh
+DICTPLUGIN=/DICT_PLUGIN_DIR/DictPlugin.sh
 
 source ${DICTPLUGIN}
 

@@ -1,0 +1,1 @@
+59 01 * * * root sh /DICT_PLUGIN_DIR/DictSendEmail.sh

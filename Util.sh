@@ -1,5 +1,17 @@
 #! /bin/bash
 
+SCHCONF=/MAIN_DIR/sch.conf
+source ${SCHCONF}
+
+function SendEmail()
+{
+    subject=$1
+    content=$2
+    sendEmail -f ${FromEmail} -s ${SMTPServer} -u "${subject}"\
+        -o message-charset=utf-8 -xu ${FromEmail} -xp ${EmailPassword}\
+        -m "\"${content}\"" -t ${ToEmail}
+}
+
 function GetPosixTime()
 {
     echo `date +%s`

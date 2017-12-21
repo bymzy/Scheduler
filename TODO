@@ -1,4 +1,2 @@
-# 使用百度API替换bing api
-# 增加crontab 开始进行调度
+# dict plugin 支持ssl邮件发送
 # 增加服务端使用nc进行通信
-# 使用统一的打包安装脚本进行安装

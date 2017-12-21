@@ -1,13 +1,10 @@
 #! /bin/bash
 
-SCHCONF=/root/work/Scheduler/sch.conf
-DICTCONF=/root/work/Scheduler/dict.conf
-UTILPATH=/root/work/Scheduler/Util.sh
+UTILPATH=/DICT_PLUGIN_DIR/../Util.sh
+DICTCONF=/DICT_PLUGIN_DIR/dict.conf
 
-source ${SCHCONF}
-source ${DICTCONF}
 source ${UTILPATH}
-
+source ${DICTCONF}
 
 function CheckDepend()
 {
@@ -74,9 +71,19 @@ function GetLastWords()
 {
     local count=$1
 
-    sqlite3 ${DBPATH} <<EOF
-SELECT Trans from ${DICTTABLE} ORDER BY LastTime DESC LIMIT ${count};
-EOF
+    local res=`sqlite3 ${DBPATH} <<EOF
+SELECT Name,Trans FROM ${DICTTABLE} ORDER BY LastTime DESC LIMIT ${count};
+EOF`
+
+    for line in ${res}
+    do
+        local word=`echo ${line} | awk -F "|" '{print $1}'`
+        UpdateWord "${word}" `GetPosixTime`
+
+        local tran=`echo ${line} | awk -F "|" '{print $2}'| tr "_" " " | base64 -d -i`
+        ShellFormatWords "${tran}"
+        echo " "
+    done
 }
 
 function ShellFormatWords()
