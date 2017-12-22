@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin/:/root/bin
+MAILTO=root
+HOME=/
+
+01 * * * * root /bin/bash /DRINK_WATER_DIR/DrinkWater.sh

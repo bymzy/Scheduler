@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source Common/sch.conf
+PluginList="DrinkWater"
 
 function InstallCommon()
 {
@@ -9,10 +9,24 @@ function InstallCommon()
     mkdir -p ${mainDir}/Common
     cp Common/sendemail.py ${mainDir}/Common
     cp Common/Util.sh ${mainDir}/Common
-    cp Common/sch.conf ${mainDir}/Common
 
-    sed -i "s;MAIN_DIR;${mainDir};g" ${mainDir}/Common/sch.conf
     sed -i "s;MAIN_DIR;${mainDir};g" ${mainDir}/Common/Util.sh
+}
+
+function InstallDrinkWater()
+{
+    local mainDir=$1
+    local drinkDir="$1/DrinkWater"
+
+    # copy scripts
+    mkdir -p ${drinkDir}
+    cp DrinkWater/* ${drinkDir}
+    sed -i "s;DRINK_WATER_DIR;${drinkDir};g" ${drinkDir}/*.cron
+    sed -i "s;MAIN_DIR;${mainDir};g" ${drinkDir}/DrinkWater.sh
+
+    # add cronjob
+    mv ${drinkDir}/*.cron /etc/cron.d
+    service crond reload
 }
 
 function InstallDict()
