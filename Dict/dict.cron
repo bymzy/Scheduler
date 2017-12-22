@@ -1,1 +1,6 @@
-59 01 * * * root sh /DICT_PLUGIN_DIR/DictSendEmail.sh
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin/:/root/bin
+MAILTO=root
+HOME=/
+
+59 01 * * * root /bin/bash /DICT_PLUGIN_DIR/DictSendEmail.sh
