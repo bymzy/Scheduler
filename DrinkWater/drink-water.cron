@@ -3,4 +3,4 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin/:/root/bin
 MAILTO=root
 HOME=/
 
-01 * * * * root /bin/bash /DRINK_WATER_DIR/DrinkWater.sh
+01 09-20 * * 1-5 root /bin/bash /DRINK_WATER_DIR/DrinkWater.sh
