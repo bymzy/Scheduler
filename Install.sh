@@ -1,6 +1,6 @@
 #! /bin/bash
 
-PluginList="DrinkWater"
+PluginList="DrinkWater Dict"
 
 function InstallCommon()
 {
@@ -55,7 +55,7 @@ installDir=$1
 
 InstallCommon ${installDir}
 
-for plugin in "${PluginList}"
+for plugin in `echo ${PluginList}`
 do
     Install${plugin} ${installDir}
 done
